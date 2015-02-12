@@ -1,0 +1,14 @@
+# Created by https://www.gitignore.io
+
+### CakePHP ###
+CakePHP 3
+
+/vendor/*
+/config/app.php
+/tmp/*
+/logs/*
+
+CakePHP 2
+
+/app/Config/database.php
+/app/tmp
