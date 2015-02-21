@@ -751,7 +751,7 @@ class Controller extends Object implements CakeEventListener {
  *
  * @param string|array $url A string or array-based URL pointing to another location within the app,
  *     or an absolute URL
- * @param int|array|null $status HTTP status code (eg: 301). Defaults to 302 when null is passed.
+ * @param int $status Optional HTTP status code (eg: 404)
  * @param bool $exit If true, exit() will be called after the redirect
  * @return void
  * @triggers Controller.beforeRedirect $this, array($url, $status, $exit)
@@ -785,10 +785,9 @@ class Controller extends Object implements CakeEventListener {
 			}
 		}
 
-		if ($status === null) {
-			$status = 302;
+		if ($status) {
+			$this->response->statusCode($status);
 		}
-		$this->response->statusCode($status);
 
 		if ($exit) {
 			$this->response->send();

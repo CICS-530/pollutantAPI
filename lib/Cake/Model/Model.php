@@ -1428,12 +1428,8 @@ class Model extends Object implements CakeEventListener {
  * @return string Column type
  */
 	public function getColumnType($column) {
-		$cols = $this->schema();
-		if (isset($cols[$column]) && isset($cols[$column]['type'])) {
-			return $cols[$column]['type'];
-		}
-
 		$db = $this->getDataSource();
+		$cols = $this->schema();
 		$model = null;
 
 		$startQuote = isset($db->startQuote) ? $db->startQuote : null;

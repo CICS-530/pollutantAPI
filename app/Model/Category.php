@@ -9,13 +9,17 @@
 * many diseases can belong in many categories, and many categories
 * have many diseases.
 *
+*
+* The hasAndBelongsToMany array makes this model return an array
+* with ALL it's associated diseases, so you will have to filter
+* out the result (as in, strip away the associated diseases if you
+* don't need them).
 */
 
 class Category extends AppModel {
-	// Fill this in!
 	public $useTable = 'Categories';
 	public $hasAndBelongsToMany = array(
-			'CategoryDisease' =>
+			'Disease' =>
 				array(
 					'className' => 'Disease',
 					'joinTable' => 'Categories_Diseases',
@@ -23,4 +27,8 @@ class Category extends AppModel {
 					'associationForeignKey' => 'diseases_id'
 					)
 		);
+
+	// we set this so we don't have to return the associated
+	// disease data unless we want to.
+	public $actsAs = array('Containable'); 
 }

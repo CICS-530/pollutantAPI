@@ -1292,7 +1292,7 @@ class FormHelper extends AppHelper {
 		if ($autoLength &&
 			in_array($options['type'], array('text', 'textarea', 'email', 'tel', 'url', 'search'))
 		) {
-			$options['maxlength'] = (int)$fieldDef['length'];
+			$options['maxlength'] = $fieldDef['length'];
 		}
 		return $options;
 	}

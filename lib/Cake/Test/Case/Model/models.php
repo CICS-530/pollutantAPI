@@ -5048,34 +5048,3 @@ class CustomArticle extends AppModel {
 	}
 
 }
-
-/**
- * Example class
- *
- * @package       Cake.Test.Case.Model
- */
-class Example extends AppModel {
-
-/**
- * useTable property
- *
- * @var string
- */
-	public $useTable = false;
-
-/**
- * schema property
- *
- * @var array
- */
-	protected $_schema = array(
-		'filefield' => array(
-			'type' => 'string',
-			'length' => 254,
-			'default' => null,
-			'null' => true,
-			'comment' => null
-		),
-	);
-
-}
