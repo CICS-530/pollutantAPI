@@ -41,3 +41,14 @@
  * the built-in default routes.
  */
 	require CAKE . 'Config' . DS . 'routes.php';
+/**
+* Adding directive to allow for creating of JSON views
+*/
+	Router::parseExtensions('json', 'xml');
+
+
+/**
+* Adding the routing for the category controller.
+*
+*/
+	Router::connect('//category//', array('controller' => 'category', 'action' =>'index'));
