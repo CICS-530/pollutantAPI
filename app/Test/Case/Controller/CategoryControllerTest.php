@@ -4,6 +4,7 @@
 *
 * Test cases for the CategoryController.
 * Ideally one test PER method.
+* ControllerTestCase is made so that it defaults to POST.
 *
 */
 
@@ -16,7 +17,7 @@ class CategoryControllerTest extends ControllerTestCase{
 	* Should not be an empty array (since data exists)
 	*/
 	public function test_getAll() {
-		$this->testAction('/category/index');
+		$this->testAction('/category/index', array('method'=>'get'));
 		// the result of the previous GET action was loaded into $this->vars
 		// $this->vars is an array
 		// the contents of this array is in form of "categories" => [inner array]
@@ -31,7 +32,7 @@ class CategoryControllerTest extends ControllerTestCase{
 	* the same.
 	*/
 	public function test_getSingleCategory() {
-		$this->testAction('/category/index/136');
+		$this->testAction('/category/index/136', array('method'=>'get'));
 		$returnedCategory = $this->vars['categories']['Category'];
 		$this->assertEquals(136, $returnedCategory['id']);
 		$this->assertEquals(1, count($this->vars['categories']));
@@ -44,7 +45,17 @@ class CategoryControllerTest extends ControllerTestCase{
 	*
 	*/
 	public function test_getNotFound() {
-		$this->testAction('/category/index/1');
+		$this->testAction('/category/index/1', array('method'=>'get'));
+	}
+
+	/**
+	*
+	* POST to the index method. We don't want it to go through
+	* @expectedException MethodNotAllowedException
+	*
+	*/
+	public function test_PostIndex() {
+		$this->testAction('/category/index', array('method' => 'post'));
 	}
 
 }

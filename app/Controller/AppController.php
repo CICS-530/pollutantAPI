@@ -20,7 +20,6 @@
  */
 
 App::uses('Controller', 'Controller');
-
 /**
  * Application Controller
  *
@@ -32,6 +31,11 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	
+	public function beforeFilter() {
+		// only get requests allowed
+		$this->request->allowMethod(array('get', 'GET'));
+	}
+
 	public function beforeRender() {
 		$this->layout='';
 		$this->response->type("application/json");
