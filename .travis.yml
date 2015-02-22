@@ -31,7 +31,7 @@ before_script:
           > app/Config/database.php
 
 script:
-    - app/Console/cake test app AllTests --coverage-clover
+    - app/Console/cake test app AllTests --coverage-clover build/logs/clover.xml
 
 after_script:
     ./codeclimate.sh
