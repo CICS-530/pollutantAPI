@@ -1,35 +1,34 @@
 language: php
 php:
-	-5.5
+    -5.5
 
 env:
-	-DB=mysql
+    -DB=mysql
 
 # only want to build master branch
 branches:
-	only:
-		- master
+    only:
+        - master
 
 before_script:
-	- mkdir app/tmp
-	- chmod -R 777 app/tmp
-	- sh -c "mysql -e 'CREATE DATABASE pollutantDB_test;'"
-	- sh -c "mysql -u travis -p pollutantDB_test < app/Config/Schema/pollutantDB.sql"
-	- echo " <?php class DATABASE_CONFIG { 
-				 public \$test = array(
-				'datasource' => 'Database/Mysql',
-				'persistent' => false,
-				'host' => '0.0.0.0',
-				'login' => 'travis',
-				'database' => 'pollutantDB_test',
-				'prefix' => '',
-				'encoding' => 'utf8'
-			);
-		} " > app/config/database.php
+    - mkdir app/tmp
+    - chmod -R 777 app/tmp
+    - sh -c "mysql -e 'CREATE DATABASE pollutantDB_test;'"
+    - sh -c "mysql -u travis -p pollutantDB_test < app/Config/Schema/pollutantDB.sql"
+    - echo <?php 
+                class DATABASE_CONFIG { 
+                    public \$test = array(
+                    'datasource' => 'Database/Mysql',
+                    'persistent' => false,
+                    'host' => '0.0.0.0',
+                    'login' => 'travis',
+                    'database' => 'pollutantDB_test',
+                    'encoding' => 'utf8'); }
+          > app/config/database.php
 
 script:
-	- app/Console/cake test app AllTests
+    - app/Console/cake test app AllTests
 
 notifications:
-	# no notifications for now.
-	email: false;
+    # no notifications for now.
+    email: false;
