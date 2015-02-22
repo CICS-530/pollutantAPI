@@ -13,7 +13,7 @@ before_script:
     - chmod -R 777 app/tmp
     - sh -c "mysql -e 'CREATE DATABASE pollutantDB_test;'"
     - sh -c "mysql -u travis pollutantDB_test < app/Config/Schema/pollutantDB.sql"
-    - echo <?php 
+    - echo "<?php 
                 class DATABASE_CONFIG { 
                     public \$test = array(
                     'datasource' => 'Database/Mysql',
@@ -21,8 +21,8 @@ before_script:
                     'host' => '0.0.0.0',
                     'login' => 'travis',
                     'database' => 'pollutantDB_test',
-                    'encoding' => 'utf8'); }
-          > app/config/database.php
+                    'encoding' => 'utf8'); }"
+          > app/Config/database.php
 
 script:
     - app/Console/cake test app AllTests
