@@ -16,8 +16,7 @@ Only GET requests are supported for now.
 
 ## Development and Deployment
 This project is developed using CakePHP version 2.6. 
-Travis-CI along with automated deployments are planned and should be coming within
-the next couple days.
+Automated deployments are planned and should be coming within the next couple days.
 
 Unit tests have been created using PHPUnit.
 
