@@ -12,7 +12,7 @@ before_script:
     - mkdir app/tmp
     - chmod -R 777 app/tmp
     - sh -c "mysql -e 'CREATE DATABASE pollutantDB_test;'"
-    - sh -c "mysql -u travis -p pollutantDB_test < app/Config/Schema/pollutantDB.sql"
+    - sh -c "mysql -u travis pollutantDB_test < app/Config/Schema/pollutantDB.sql"
     - echo <?php 
                 class DATABASE_CONFIG { 
                     public \$test = array(
