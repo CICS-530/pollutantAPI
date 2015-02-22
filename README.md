@@ -1,4 +1,6 @@
-# CICS 530 Project:
+# CICS 530 Project: 
+[![Build Status](https://travis-ci.org/achengscode/pollutantAPI.svg?branch=master)](https://travis-ci.org/achengscode/pollutantAPI)
+
 ## Pollutant DB API
 
 This is the pollutant web API part of the CICS 530 project. This portion is the 
@@ -16,7 +18,8 @@ Only GET requests are supported for now.
 
 ## Development and Deployment
 This project is developed using CakePHP version 2.6. 
-Automated deployments are planned and should be coming within the next couple days.
+Continuous integration is maintained via Travis-CI and CodeClimate (both of which are
+free for open source projects).
 
 Unit tests have been created using PHPUnit.
 

@@ -7,10 +7,16 @@ env:
 branches:
     only:
         - master
+# installing the code climate test coverage push-thingy via composer
+install:
+    - composer require codeclimate/php-test-reporter --dev
+    - composer update
+    - composer install 
 
 before_script:
     - mkdir app/tmp
     - chmod -R 777 app/tmp
+    - chmod +x ./codeclimate.sh
     - sh -c "mysql -e 'CREATE DATABASE pollutantDB_test;'"
     - sh -c "mysql -u travis pollutantDB_test < app/Config/Schema/pollutantDB.sql"
     - echo "<?php 
@@ -26,6 +32,9 @@ before_script:
 
 script:
     - app/Console/cake test app AllTests
+
+after_script:
+    ./codeclimate.sh
 
 notifications:
     # no notifications for now.
