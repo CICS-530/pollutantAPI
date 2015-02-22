@@ -1,50 +1,33 @@
-# CakePHP
+# CICS 530 Project:
+## Pollutant DB API
 
-[![Latest Stable Version](https://poser.pugx.org/cakephp/cakephp/v/stable.svg)](https://packagist.org/packages/cakephp/cakephp)
-[![License](https://poser.pugx.org/cakephp/cakephp/license.svg)](https://packagist.org/packages/cakephp/cakephp)
-[![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
-[![Code consistency](http://squizlabs.github.io/PHP_CodeSniffer/analysis/cakephp/cakephp/grade.svg)](http://squizlabs.github.io/PHP_CodeSniffer/analysis/cakephp/cakephp/)
+This is the pollutant web API part of the CICS 530 project. This portion is the 
+part that stores information about the categories of diseases and makes 
+simple queries dealing with each of the following models:
+	* Categories (The disease categories)
+	* Diseases (The diesases themselves)
+	* Toxins (The toxins that are attributed to the diseases).
 
-[![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
+The capabilities of this API is quite limited. There is no ability to ADD to the
+database for now, it is merely just a querying service. Addition of real-time
+air pollution data may come in the future.
 
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.
-Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
+Only GET requests are supported for now.
 
+## Development and Deployment
+This project is developed using CakePHP version 2.6. 
+Travis-CI along with automated deployments are planned and should be coming within
+the next couple days.
 
-## Some Handy Links
+Unit tests have been created using PHPUnit.
 
-[CakePHP](http://www.cakephp.org) - The rapid development PHP framework
+The folder structure follows the standard CakePHP folder structure; one bug is 
+noted, all third-party plugins installed via Composer must be copied over to the 
+`app/Vendor` folder before it can be used.
 
-[CookBook](http://book.cakephp.org) - THE CakePHP user documentation; start learning here!
+The supported PHP versions are 5.2.8+, although the lastest version of PHP is
+recommended. 
 
-[API](http://api.cakephp.org) - A reference to CakePHP's classes
-
-[Plugins](http://plugins.cakephp.org/) - A repository of extensions to the framework
-
-[The Bakery](http://bakery.cakephp.org) - Tips, tutorials and articles
-
-[Community Center](http://community.cakephp.org) - A source for everything community related
-
-[Training](http://training.cakephp.org) - Join a live session and get skilled with the framework
-
-[CakeFest](http://cakefest.org) - Don't miss our annual CakePHP conference
-
-[Cake Software Foundation](http://cakefoundation.org) - Promoting development related to CakePHP
-
-
-## Get Support!
-
-[#cakephp](http://webchat.freenode.net/?channels=#cakephp) on irc.freenode.net - Come chat with us, we have cake
-
-[Google Group](https://groups.google.com/group/cake-php) - Community mailing list and forum
-
-[GitHub Issues](https://github.com/cakephp/cakephp/issues) - Got issues? Please tell us!
-
-[Roadmaps](https://github.com/cakephp/cakephp/wiki#roadmaps) - Want to contribute? Get involved!
-
-
-## Contributing
-
-[CONTRIBUTING.md](CONTRIBUTING.md) - Quick pointers for contributing to the CakePHP project
-
-[CookBook "Contributing" Section (2.x)](http://book.cakephp.org/2.0/en/contributing.html) [(3.0)](http://book.cakephp.org/3.0/en/contributing.html) - Version-specific details about contributing to the project
+A MySQL database is required for this application. The database is currently located 
+in the form of various SQL scripts; this will change in the future, the SQL needs
+to be migrated over to a database-agnostic form (i.e. in the form of schema.php).

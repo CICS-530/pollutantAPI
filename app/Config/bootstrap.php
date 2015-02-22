@@ -121,3 +121,15 @@ require APP . 'Vendor/autoload.php';
 // See: http://goo.gl/kKVJO7
 spl_autoload_unregister(array('App', 'load'));
 spl_autoload_register(array('App', 'load'), true, true);
+
+
+/**
+*
+* Function is used to display a standard error WITHOUT 
+* typical CakePHP error handling.
+* Only works in production.
+*/
+function displayPlainError() {
+	return true;
+}
+set_error_handler('displayPlainError');
