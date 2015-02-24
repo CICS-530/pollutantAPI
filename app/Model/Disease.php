@@ -12,4 +12,16 @@
 class Disease extends AppModel {
 	// needs to be filled in!
 	public $useTable = 'Diseases';
+
+	public $hasAndBelongsToMany = array(
+			'Category' =>
+				array(
+					'className' => 'Category',
+					'joinTable' => 'Categories_Diseases',
+					'foreignKey' => 'diseases_id',
+					'associationForeignKey' => 'category_id'
+					)
+		);
+
+	public $hasMany = array('DiseaseToxin');
 }

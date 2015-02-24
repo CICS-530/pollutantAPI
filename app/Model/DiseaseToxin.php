@@ -10,6 +10,7 @@
 * 
 */
 
-public DiseaseToxin extends AppModel {
-
+class DiseaseToxin extends AppModel {
+	public $useTable = 'Diseases_Toxins';
+	public $belongsTo = array('Disease', 'Toxin');
 }
