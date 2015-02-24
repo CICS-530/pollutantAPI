@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* CategoryController.php
+* DiseaseController.php
 *
 * The controller for the Category model.
 * Presents basic information about the category.
@@ -29,6 +29,7 @@ class DiseaseController extends AppController {
 	*/
 	function index() {
 		// set recursive to level -1 to stop it from joining tables
+		$this->Disease->recursive = -1;
 		// check if we have any URL paramenters.
 		// query depends on whether or not we have an ID or not.
 		if ($this->params['pass'] != null) {

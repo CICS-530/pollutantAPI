@@ -31,10 +31,11 @@ class DiseaseControllerTest extends ControllerTestCase{
 	* Check to see if the id specified and id of returned category are 
 	* the same.
 	*/
-	public function test_getSingleCategory() {
+	public function test_getSingleDisease() {
 		$this->testAction('/disease/index/620', array('method'=>'get'));
-		$returnedCategory = $this->vars['diseases']['Disease'];
-		$this->assertEquals(620, $returnedCategory['id']);
+		$returnedDisease = $this->vars['diseases']['Disease'];
+		debug($this->vars['diseases']);
+		$this->assertEquals(620, $returnedDisease['id']);
 		$this->assertEquals(1, count($this->vars['diseases']));
 	}
 	/**
