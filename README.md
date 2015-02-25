@@ -1,7 +1,7 @@
 # CICS 530 Project: 
-[![Build Status](https://travis-ci.org/achengscode/pollutantAPI.svg?branch=master)](https://travis-ci.org/achengscode/pollutantAPI)
-[![Code Climate](https://codeclimate.com/github/achengscode/pollutantAPI/badges/gpa.svg)](https://codeclimate.com/github/achengscode/pollutantAPI)
-[![Test Coverage](https://codeclimate.com/github/achengscode/pollutantAPI/badges/coverage.svg)](https://codeclimate.com/github/achengscode/pollutantAPI)
+[![Build Status](https://travis-ci.org/CICS-530/pollutantAPI.svg?branch=master)](https://travis-ci.org/CICS-530/pollutantAPI)
+[![Code Climate](https://codeclimate.com/github/CICS-530/pollutantAPI/badges/gpa.svg)](https://codeclimate.com/github/CICS-530/pollutantAPI)
+[![Test Coverage](https://codeclimate.com/github/CICS-530/pollutantAPI/badges/coverage.svg)](https://codeclimate.com/github/CICS-530/pollutantAPI)
 
 ## Pollutant DB API
 
