@@ -10,5 +10,6 @@ CakePHP 3
 
 CakePHP 2
 
+/app/Config/core.php
 /app/Config/database.php
 /app/tmp
