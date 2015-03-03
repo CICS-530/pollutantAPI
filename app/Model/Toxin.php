@@ -12,4 +12,5 @@
 
 public Toxin extends AppModel {
 	// This needs to be filled in.
-}
+	public $name = 'Toxin';
+}}
