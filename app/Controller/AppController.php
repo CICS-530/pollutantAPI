@@ -40,4 +40,34 @@ class AppController extends Controller {
 		$this->layout='';
 		$this->response->type("application/json");
 	}
+	
+	public function searchHelper($name, $type, $table) {
+		
+		switch ($type) {
+		
+			case "equals":
+				$sql = 	"select * from " . $table . " where ucase(name) = '".$name."'";
+				break;
+		
+			case "contains":
+				$sql = "select * from " . $table . " where ucase(name) like '%" . $name . "%' order by name";
+				break;
+					
+			case "startswith":
+				$sql = 	"select * from " . $table . " where ucase(name) like '".$name . "%' order by name";
+				break;
+					
+			case "endswith":
+				$sql = 	"select * from " . $table . " where ucase(name) like '%" . $name . "' order by name";
+				break;
+		
+			default:
+				$sql = 	"select * from " . $table . " where ucase(name) = '".$name."'";
+				break;
+		}
+
+		return $sql;
+		
+		
+	}
 }

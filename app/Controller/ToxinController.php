@@ -1,10 +1,10 @@
 <?php
 /**
 *
-* CategoryController.php
+* ToxinController.php
 *
-* The controller for the Category model.
-* Presents basic information about the category.
+* The controller for the Toxin model.
+* Presents basic information about the toxin.
 * Does NOT return a view.
 */
 
@@ -15,10 +15,10 @@ App::uses('AppController', 'Controller');
 App::uses('NotFoundException', 'Exception');
 
 
-class CategoryController extends AppController {
+class ToxinController extends AppController {
 	/**
 	*
-	* Gets ALL categories and returns a json array
+	* Gets ALL toxin and returns a json array
 	* containing their ids and names.
 	* 
 	* Check if the parameter passed in is null or not.
@@ -29,43 +29,40 @@ class CategoryController extends AppController {
 	*/
 	function index() {
 		// set recursive to level -1 to stop it from joining tables
-		$this->Category->recursive = -1;
-
+		$this->Toxin->recursive = -1;
 		// check if we have any URL paramenters.
 		// query depends on whether or not we have an ID or not.
 		if ($this->params['pass'] != null) {
 			$id = $this->params['pass'][0];
-			$category = $this->Category->findById($id);
+			$toxin = $this->Toxin->findById($id);		
 		} else {
-			$category = $this->Category->find('all');	
+			$toxin = $this->Toxin->find('all');	
 		}
 
 		// throw exception if we can't find anything.
-		if ($this->Category->getAffectedRows() === 0) {
-			throw new NotFoundException('No disease categories found!');
+		if ($this->Toxin->getAffectedRows() === 0) {
+			throw new NotFoundException('No toxins found!');
 		}
 
-		$this->set('categories', $category);
+		$this->set('toxins', $toxin);
 	}
 	
-	
 	/**
-	 *
-	 * searches for all categories by name and returns a json array
-	 * containing their ids and names.
+	 * searches for all toxins by name and returns a json array
+	 * containing their ids and names and notes.
 	 *
 	 * This is a wildcard search with equals(default), contains, startswith, endswith
 	 *
 	 * e.g.
-	 * http://localhost:8000/category/search
-	 * http://localhost:8000/category/search?name=developmental
-	 * http://localhost:8000/category/search?name=developmental&type=equals
-	 * http://localhost:8000/category/search?name=developmental&type=startswith
-	 * http://localhost:8000/category/search?name=developmental&type=endswith
-	 * http://localhost:8000/category/search?name=develop&type=contains
+	 * http://localhost:8000/toxin/search
+	 * http://localhost:8000/toxin/search?name=acetone
+	 * http://localhost:8000/toxin/search?name=acetone&type=equals
+	 * http://localhost:8000/toxin/search?name=A&type=startswith
+	 * http://localhost:8000/toxin/search?name=A&type=endswith
+	 * http://localhost:8000/toxin/search?name=A&type=contains
 	 *
 	 * Check if the parameters passed in is null or not.
-	 * If null, return all, otherwise return the category according to the type of search
+	 * If null, return all, otherwise return the name according to the type of search
 	 *
 	 *
 	 * If nothing was found, an error 404 should be returned.
@@ -73,7 +70,7 @@ class CategoryController extends AppController {
 	function search() {
 		
 		// set recursive to level -1 to stop it from joining tables
-		$this->Category->recursive = - 1;
+		$this->Toxin->recursive = - 1;
 		
 		// check if we have name parameter else display all results
 		if (isset ( $_REQUEST ['name'] )) {
@@ -82,26 +79,24 @@ class CategoryController extends AppController {
 			// check if the search type is passed otherwise run a default(equals) search
 			if (isset ( $_REQUEST ['type'] )) {
 				$searchType = strtolower ( $_REQUEST ['type'] );
-				$table = "categories";
+				$table = "toxins";
 				// get the sql query based on type
 				$sql = parent::searchHelper ( $name, $searchType, $table );
 			} else {
 				// default
-				$sql = "select * from categories where ucase(name) = '" . $name . "'";
+				$sql = "select * from toxins where ucase(name) = '" . $name . "'";
 			}
 			
-			$category = $this->Category->query ( $sql );
-			
+			$toxins = $this->Toxin->query ( $sql );
 		} else {
-			$category = $this->Category->find ( 'all' );
+			$toxins = $this->Toxin->find ( 'all' );
 		}
 		
 		// throw exception if we can't find anything.
-		if ($this->Category->getAffectedRows () === 0) {
-			throw new NotFoundException ( 'No disease categories found!' );
+		if ($this->Toxin->getAffectedRows () === 0) {
+			throw new NotFoundException ( 'No toxins found!' );
 		}
 		
-		$this->set ( 'categories', $category );
+		$this->set ( 'toxins', $toxins );
 	}
-	
 }
