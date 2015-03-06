@@ -70,4 +70,49 @@ class AppController extends Controller {
 		
 		
 	}
+	
+	public function searchDiseaseToxinHelper($name, $type) {
+	
+		switch ($type) {
+		
+			case "equals":
+				$wcName = " = '".$name."' ";
+				break;
+		
+			case "contains":
+				$wcName = " like '%".$name."%' ";
+				break;
+					
+			case "startswith":
+				$wcName = " like '".$name."%' ";
+				break;
+					
+			case "endswith":
+				$wcName = " like '%".$name."' ";
+				break;
+		
+			default:
+				$wcName = " = '".$name."' ";
+				break;
+		}
+		
+		
+		$sql = "SELECT 
+					  diseases.name,
+					  toxins.name,
+					  diseases_toxins.evidence_strength
+					   
+				FROM 
+					  diseases_toxins
+					  INNER JOIN diseases
+					  ON diseases_toxins.disease_id = diseases.id
+					  INNER JOIN toxins
+					  ON diseases_toxins.toxin_id = toxins.id
+				WHERE
+   					  ucase(diseases.name)" . $wcName .
+					  "ORDER BY diseases.name, diseases_toxins.evidence_strength DESC";
+		
+		return $sql;	
+	
+	}
 }
