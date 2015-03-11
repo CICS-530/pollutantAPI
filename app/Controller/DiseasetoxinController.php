@@ -55,7 +55,7 @@ class DiseasetoxinController extends AppController {
 				$sql = parent::searchDiseaseToxinHelper ( $name, $searchType);
 			} else {
 				// default
-				$sql = parent::searchDiseaseToxinHelper ( $name, "default");
+				$sql = parent::searchDiseaseToxinHelper ( $name, $searchType);
 			}
 			
 			$diseasetoxins = $this->Diseasetoxin->query ( $sql );

@@ -48,48 +48,32 @@ class DiseaseController extends AppController {
 	}
 	
 	/**
-	 * searches for all diseases by name and returns a json array
-	 * containing their ids and names and notes.
 	 *
-	 * This is a wildcard search with equals(default), contains, startswith, endswith
+	 * searches for all diseases by name and returns a json array
+	 * 
+	 *
+	 * Searches need to be exact; no wildcards are allowed here!
 	 *
 	 * e.g.
-	 * http://localhost:8000/disease/search
-	 * http://localhost:8000/disease/search?name=Acute%20tubular%20necrosis
-	 * http://localhost:8000/disease/search?name=Acute%20tubular%20necrosis&type=equals
-	 * http://localhost:8000/disease/search?name=A&type=startswith
-	 * http://localhost:8000/disease/search?name=A&type=endswith
-	 * http://localhost:8000/disease/search?name=A&type=contains
+	 * http://localhost:8000/disease/search/name
+	 * 
 	 *
 	 * Check if the parameters passed in is null or not.
-	 * If null, return all, otherwise return the name according to the type of search
+	 * If null, return all, otherwise return the disease according to the type of search
 	 *
 	 *
 	 * If nothing was found, an error 404 should be returned.
 	 */
-	function search() {
+	function search($name = null) {
 		
 		// set recursive to level -1 to stop it from joining tables
 		$this->Disease->recursive = - 1;
 		
-		// check if we have name parameter else display all results
-		if (isset ( $_REQUEST ['name'] )) {
-			$name = strtoupper ( $_REQUEST ['name'] );
-			
-			// check if the search type is passed otherwise run a default(equals) search
-			if (isset ( $_REQUEST ['type'] )) {
-				$searchType = strtolower ( $_REQUEST ['type'] );
-				$table = "diseases";
-				// get the sql query based on type
-				$sql = parent::searchHelper ( $name, $searchType, $table );
-			} else {
-				// default
-				$sql = "select * from diseases where ucase(name) = '" . $name . "'";
-			}
-			
-			$diseases = $this->Disease->query ( $sql );
+
+		if ($name != null) {
+			$disease = $this->Disease->findByName($name);
 		} else {
-			$diseases = $this->Disease->find ( 'all' );
+			$disease = $this->Disease->find('all');
 		}
 		
 		// throw exception if we can't find anything.
@@ -97,6 +81,25 @@ class DiseaseController extends AppController {
 			throw new NotFoundException ( 'No diseases found!' );
 		}
 		
-		$this->set ( 'diseases', $diseases );
+		$this->set ( 'diseases', $disease );
 	}
+
+	/**
+	* Get the associated toxins AS WELL AS the disease information.
+	*
+	*/
+	function getToxins($name = null) {
+		// leave reursive level to 2.
+
+		$this->Disease->recursive = 2;
+
+		$disease = $this->Disease->findByName($name); 
+
+		if ($this->Disease->getAffectedRows() === 0) {
+			throw new NotFoundException ('No diseases found!');
+		}
+
+		$this->set ('diseases', $disease);
+	}
+	
 }

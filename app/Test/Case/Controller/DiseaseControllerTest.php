@@ -34,7 +34,6 @@ class DiseaseControllerTest extends ControllerTestCase{
 	public function test_getSingleDisease() {
 		$this->testAction('/disease/index/620', array('method'=>'get'));
 		$returnedDisease = $this->vars['diseases']['Disease'];
-		debug($this->vars['diseases']);
 		$this->assertEquals(620, $returnedDisease['id']);
 		$this->assertEquals(1, count($this->vars['diseases']));
 	}
@@ -57,6 +56,18 @@ class DiseaseControllerTest extends ControllerTestCase{
 	*/
 	public function test_PostIndex() {
 		$this->testAction('/disease/index', array('method' => 'post'));
+	}
+
+	/**
+	*
+	* Make a get to see if we can find the specified category.
+	*
+	*/
+	public function test_searchName() {
+		$this->testAction('/Disease/search/Acute%20tubular%20necrosis', array('method' => 'get'));
+		$returnedDisease = $this->vars['diseases']['Disease'];
+
+		$this->assertEquals(1, count($this->vars['diseases']));
 	}
 
 }

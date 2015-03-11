@@ -98,19 +98,19 @@ class AppController extends Controller {
 		
 		
 		$sql = "SELECT 
-					  diseases.name,
-					  toxins.name,
-					  diseases_toxins.evidence_strength
+					  Diseases.name,
+					  Toxins.name,
+					  Diseases_Toxins.evidence_strength
 					   
 				FROM 
-					  diseases_toxins
-					  INNER JOIN diseases
-					  ON diseases_toxins.disease_id = diseases.id
-					  INNER JOIN toxins
-					  ON diseases_toxins.toxin_id = toxins.id
+					  Diseases_Toxins
+					  INNER JOIN Diseases
+					  ON Diseases_Toxins.disease_id = Diseases.id
+					  INNER JOIN Toxins
+					  ON Diseases_Toxins.toxin_id = Toxins.id
 				WHERE
-   					  ucase(diseases.name)" . $wcName .
-					  "ORDER BY diseases.name, diseases_toxins.evidence_strength DESC";
+   					  ucase(Diseases.name)" . $wcName .
+					  "ORDER BY Diseases.name, Diseases_Toxins.evidence_strength DESC";
 		
 		return $sql;	
 	

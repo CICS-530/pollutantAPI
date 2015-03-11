@@ -41,3 +41,9 @@
  * the built-in default routes.
  */
 	require CAKE . 'Config' . DS . 'routes.php';
+
+/**
+*
+* Adding routes for our custom controllers
+*
+*/
