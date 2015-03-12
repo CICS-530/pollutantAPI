@@ -36,6 +36,13 @@ script:
 after_script:
     ./codeclimate.sh
 
+deploy:
+    provider: openshift
+    user: "docaholic@gmail.com"
+    password: $openshift_pass
+    domain: aaroncheng
+    app: pollutantapi
+
 notifications:
     # no notifications for now.
     email: false;
