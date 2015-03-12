@@ -7,6 +7,8 @@ App::uses('AppModel', 'Model');
  */
 class Toxin extends AppModel {
 
+	public $useTable = 'Toxins';
+
 /**
  * Display field
  *
