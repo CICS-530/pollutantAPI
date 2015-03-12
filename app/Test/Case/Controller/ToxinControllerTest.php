@@ -2,14 +2,14 @@
 
 /**
 *
-* Test cases for the CategoryController.
+* Test cases for the ToxinController.
 * Ideally one test PER method.
 * ControllerTestCase is made so that it defaults to POST.
 *
 */
 
 
-class CategoryControllerTest extends ControllerTestCase{
+class ToxinControllerTest extends ControllerTestCase{
 
 	/**
 	* Get all categories.
@@ -17,25 +17,25 @@ class CategoryControllerTest extends ControllerTestCase{
 	* Should not be an empty array (since data exists)
 	*/
 	public function test_getAll() {
-		$this->testAction('/category/index', array('method'=>'get'));
+		$this->testAction('/toxin/index', array('method'=>'get'));
 		// the result of the previous GET action was loaded into $this->vars
 		// $this->vars is an array
 		// the contents of this array is in form of "categories" => [inner array]
-		// the inner array (we expect) to have 25 elements.
-		$this->assertEquals(25, count($this->vars["categories"]));
+		// the inner array (we expect) to be greater than zero.
+		$this->assertTrue(count($this->vars['toxins']) > 0);
 	}
 
 	/**
 	*
-	* Get a single CategoryController.
+	* Get a single ToxinController.
 	* Check to see if the id specified and id of returned category are 
 	* the same.
 	*/
-	public function test_getSingleCategory() {
-		$this->testAction('/category/index/136', array('method'=>'get'));
-		$returnedCategory = $this->vars['categories']['Category'];
-		$this->assertEquals(136, $returnedCategory['id']);
-		$this->assertEquals(1, count($this->vars['categories']));
+	public function test_getSingleToxin() {
+		$this->testAction('/toxin/index/2321', array('method'=>'get'));
+		$returnedToxin = $this->vars['toxins']['Toxin'];
+		$this->assertEquals(2321, $returnedToxin['id']);
+		$this->assertEquals(1, count($this->vars['toxins']));
 	}
 	/**
 	*
@@ -45,7 +45,7 @@ class CategoryControllerTest extends ControllerTestCase{
 	*
 	*/
 	public function test_getNotFound() {
-		$this->testAction('/category/index/1', array('method'=>'get'));
+		$this->testAction('/Toxin/index/1', array('method'=>'get'));
 	}
 
 	/**
@@ -55,7 +55,7 @@ class CategoryControllerTest extends ControllerTestCase{
 	*
 	*/
 	public function test_PostIndex() {
-		$this->testAction('/category/index', array('method' => 'post'));
+		$this->testAction('/toxin/index', array('method' => 'post'));
 	}
 
 	/**
@@ -64,10 +64,10 @@ class CategoryControllerTest extends ControllerTestCase{
 	*
 	*/
 	public function test_searchName() {
-		$this->testAction('/category/search/Cardio-vascular', array('method' => 'get'));
-		$returnedCategory = $this->vars['categories']['Category'];
+		$this->testAction('/toxin/search/lead', array('method' => 'get'));
+		$returnedToxin = $this->vars['toxins']['Toxin'];
 
-		$this->assertEquals(1, count($this->vars['categories']));
+		$this->assertEquals(1, count($this->vars['toxins']));
 	}
 
 }

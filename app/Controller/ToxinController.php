@@ -22,7 +22,7 @@ class ToxinController extends AppController {
 	* containing their ids and names.
 	* 
 	* Check if the parameter passed in is null or not.
-	* If null, return all, otherwise return the category specified
+	* If null, return all, otherwise return the Toxin specified
 	* by ID.
 	*
 	* If nothing was found, an error 404 should be returned.
@@ -47,49 +47,31 @@ class ToxinController extends AppController {
 		$this->set('toxins', $toxin);
 	}
 	
-	/**
-	 * searches for all toxins by name and returns a json array
-	 * containing their ids and names and notes.
+		/**
 	 *
-	 * This is a wildcard search with equals(default), contains, startswith, endswith
+	 * searches for all categories by name and returns a json array
+	 * containing their ids and names.
+	 *
+	 * Searches need to be exact; no wildcards are allowed here!
 	 *
 	 * e.g.
-	 * http://localhost:8000/toxin/search
-	 * http://localhost:8000/toxin/search?name=acetone
-	 * http://localhost:8000/toxin/search?name=acetone&type=equals
-	 * http://localhost:8000/toxin/search?name=A&type=startswith
-	 * http://localhost:8000/toxin/search?name=A&type=endswith
-	 * http://localhost:8000/toxin/search?name=A&type=contains
+	 * http://localhost:8000/Toxin/search/name
+	 * 
 	 *
 	 * Check if the parameters passed in is null or not.
-	 * If null, return all, otherwise return the name according to the type of search
+	 * If null, return all, otherwise return the Toxin according to the type of search
 	 *
 	 *
 	 * If nothing was found, an error 404 should be returned.
 	 */
-	function search() {
+	function search($name = null) {
 		
 		// set recursive to level -1 to stop it from joining tables
 		$this->Toxin->recursive = - 1;
 		
-		// check if we have name parameter else display all results
-		if (isset ( $_REQUEST ['name'] )) {
-			$name = strtoupper ( $_REQUEST ['name'] );
-			
-			// check if the search type is passed otherwise run a default(equals) search
-			if (isset ( $_REQUEST ['type'] )) {
-				$searchType = strtolower ( $_REQUEST ['type'] );
-				$table = "toxins";
-				// get the sql query based on type
-				$sql = parent::searchHelper ( $name, $searchType, $table );
-			} else {
-				// default
-				$sql = "select * from toxins where ucase(name) = '" . $name . "'";
-			}
-			
-			$toxins = $this->Toxin->query ( $sql );
-		} else {
-			$toxins = $this->Toxin->find ( 'all' );
+
+		if ($name != null) {
+			$toxin = $this->Toxin->findByName($name);
 		}
 		
 		// throw exception if we can't find anything.
@@ -97,6 +79,7 @@ class ToxinController extends AppController {
 			throw new NotFoundException ( 'No toxins found!' );
 		}
 		
-		$this->set ( 'toxins', $toxins );
+		$this->set ( 'toxins', $toxin );
 	}
+	
 }
