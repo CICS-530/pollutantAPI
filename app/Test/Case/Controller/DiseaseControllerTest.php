@@ -64,10 +64,25 @@ class DiseaseControllerTest extends ControllerTestCase{
 	*
 	*/
 	public function test_searchName() {
-		$this->testAction('/Disease/search/Acute%20tubular%20necrosis', array('method' => 'get'));
+		$this->testAction('/disease/search/Acute%20tubular%20necrosis', array('method' => 'get'));
 		$returnedDisease = $this->vars['diseases']['Disease'];
 
 		$this->assertEquals(1, count($this->vars['diseases']));
+	}
+
+
+	/**
+	*
+	* Get a disease along with its related toxins
+	*
+	*/
+	public function test_getToxins() {
+		$this->testAction('/disease/getToxins/Acute%20tubular%20necrosis', array('method' => 'get'));
+
+		$returnedArray = $this->vars['diseases'];
+		$disease = $returnedArray["Disease"];
+		$this->assertEquals("620", $disease["id"]);
+		$this->assertEquals(44, count($returnedArray["DiseaseToxin"]));
 	}
 
 }
