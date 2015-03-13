@@ -70,4 +70,14 @@ class ToxinControllerTest extends ControllerTestCase{
 		$this->assertEquals(1, count($this->vars['toxins']));
 	}
 
+
+	/**
+	* A test to see if we can get the right disease for a specified toxin.
+	*/
+	public function test_searchDisease() {
+		$this->testAction('/toxin/getDiseases/Asbestos', array('method' => 'get'));
+		$returnedDiseases = $this->vars['entireArray']['Disease'];
+		$this->assertEquals(20, count($returnedDiseases));
+	}
+
 }
