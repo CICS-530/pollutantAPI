@@ -4,7 +4,7 @@
 		$entireArray[] = $disease;
 	}
 
-	$jsonArray["Disease"] = $entireArray[0];
+	$jsonArray["disease"] = $entireArray[0];
 
 	// make a new array for each of the inner arrays
 	// the each entry in the inner array is a model based on the 

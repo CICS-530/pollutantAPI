@@ -54,7 +54,7 @@ class Toxin extends AppModel {
 	public $hasAndBelongsToMany = array(
 		'Disease' => array(
 			'className' => 'Disease',
-			'joinTable' => 'diseases_toxins',
+			'joinTable' => 'Diseases_Toxins',
 			'foreignKey' => 'toxin_id',
 			'associationForeignKey' => 'disease_id',
 			'unique' => 'keepExisting',

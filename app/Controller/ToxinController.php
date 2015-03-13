@@ -81,5 +81,26 @@ class ToxinController extends AppController {
 		
 		$this->set ( 'toxins', $toxin );
 	}
+
+
+	/*
+	*
+	* Find the associated diseases for a certain toxin.
+	*
+	*
+	*/
+	function getDiseases($name = null) {
+		$this->Toxin->recursive = 1;
+
+		if ($name != null) {
+			$toxin = $this->Toxin->findByName($name);
+		}
+
+		if ($this->Toxin->getAffectedRows() === 0) {
+			throw new NotFoundException ('No toxins found!');
+		}
+
+		$this->set('entireArray', $toxin);
+	}
 	
 }
