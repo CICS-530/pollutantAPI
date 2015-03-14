@@ -27,10 +27,5 @@ class Category extends AppModel {
 					'associationForeignKey' => 'diseases_id'
 					)
 		);
-
-	// we set this so we don't have to return the associated
-	// disease data unless we want to.
-	public $actsAs = array('Containable'); 
 	
-	public $hasMany = array('CategoryDiseases');
 }

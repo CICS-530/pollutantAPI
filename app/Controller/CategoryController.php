@@ -95,7 +95,7 @@ class CategoryController extends AppController {
 	function getDiseases($name = null) {
 		// leave reursive level to 2.
 	
-		$this->Category->recursive = 2;
+		$this->Category->recursive = 1;
 	
 		$category = $this->Category->findByName($name);
 	
