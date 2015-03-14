@@ -70,18 +70,18 @@ class CategoryControllerTest extends ControllerTestCase{
 		$this->assertEquals(1, count($this->vars['categories']));
 	}
 	
-	/**
+	/* 
 	 *
 	 * Get a category along with its associated diseases
 	 *
 	 */
-	public function test_getDiseases() {
+	/* public function test_getDiseases() {
 		$this->testAction('/category/getdiseases/Liver', array('method' => 'get'));
 	
 		$returnedArray = $this->vars['categories'];
 		$category = $returnedArray["Category"];
 		$this->assertEquals("Liver", $category["name"]);
 		$this->assertEquals(10, count($returnedArray["CategoryDiseases"]));
-	}
+	} */ 
 
 }
