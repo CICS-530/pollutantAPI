@@ -87,4 +87,23 @@ class CategoryController extends AppController {
 		$this->set ( 'categories', $category );
 	}
 	
+	/**
+	 *  searches for all categories by name and returns a json array
+	 *  containing their associated diseases.
+	 *
+	 */
+	function getDiseases($name = null) {
+		// leave reursive level to 2.
+	
+		$this->Category->recursive = 1;
+	
+		$category = $this->Category->findByName($name);
+	
+		if ($this->Category->getAffectedRows() === 0) {
+			throw new NotFoundException ('No categories found!');
+		}
+	
+		$this->set ('categories', $category);
+	}
+	
 }
