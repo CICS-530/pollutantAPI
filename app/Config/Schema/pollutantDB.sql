@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 20, 2015 at 10:51 PM
+-- Generation Time: Mar 21, 2015 at 02:17 PM
 -- Server version: 5.5.41-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.6
+-- PHP Version: 5.5.9-1ubuntu4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -481,6 +481,33 @@ INSERT INTO `Categories_Diseases` (`id`, `diseases_id`, `category_id`) VALUES
 (396, 775, 151),
 (397, 777, 150),
 (398, 777, 142);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Chemicals`
+--
+
+CREATE TABLE IF NOT EXISTS `Chemicals` (
+  `id` int(11) NOT NULL,
+  `name` varchar(10) NOT NULL,
+  `units` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Chemical_Readings`
+--
+
+CREATE TABLE IF NOT EXISTS `Chemical_Readings` (
+  `id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `location_id` int(5) NOT NULL,
+  `chem_id` int(11) NOT NULL,
+  `reading` float(3,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -3571,6 +3598,20 @@ INSERT INTO `Diseases_Toxins` (`id`, `disease_id`, `toxin_id`, `evidence_strengt
 (2854, 819, 3026, 2),
 (2855, 785, 2321, 3),
 (2856, 722, 2388, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Location`
+--
+
+CREATE TABLE IF NOT EXISTS `Location` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `latitude` double(4,4) NOT NULL,
+  `longitude` double(4,4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
