@@ -6,10 +6,10 @@
 *
 */
 
-class Location extends AppController {
+class Location extends AppModel {
 
 	// we use the location table
-	public $uses = "Location";
+	public $useTable = "Location";
 
 	// only relationship is has many with readings
 	public $hasMany = "Reading";

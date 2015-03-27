@@ -9,8 +9,8 @@
 
 class Reading extends AppModel {
 
-	// we use the location table
-	public $uses = "Chemical_Readings";
+	// we use the readings table
+	public $useTable = "Chemical_Readings";
 
 	// only one reading per station
 	public $belongsTo = "Location";
