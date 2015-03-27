@@ -15,8 +15,7 @@ App::uses('AppController', 'Controller');
 
 class RealTimeController extends AppController {
 	var $uses = false; // doesn't use a model
-
-
+	
 	/*
 	* Generate fake data for now.
 	* Will need to fill this in later
@@ -41,4 +40,6 @@ class RealTimeController extends AppController {
 		$totalData["Chemicals"] = $chemData;
 		$this->set('data', $totalData);
 	}
+
+	
 }
