@@ -14,4 +14,7 @@ class Reading extends AppModel {
 
 	// only one reading per station
 	public $belongsTo = "Location";
+	
+	// has many chemicals however
+	public $hasMany = "Chemical";
 }
