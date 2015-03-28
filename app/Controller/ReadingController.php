@@ -6,25 +6,25 @@
 *
 * The controller for the reading model.
 * 
-* 
-*
 */
 
 
 class ReadingController extends AppController {
 
-
 	/**
 	* Returns the data for the station specified by ID.
+	* Returns the most recent entries.
 	*
 	* The ID goes from 1-25, any other numbers automatically return a 404 error
 	*/
 	function latestData($id) {
 		$this->Reading->recursive = 1;
 		if ($id != null) {
-			$readings = $this->Reading->findByLocationId($id, array(), 
-				array("time" => "desc")
-				);
+			$tempQuery = $this->Reading->findByLocationId($id, array(), array("date" => "desc"));
+			
+			$latestDate = $tempQuery["Reading"]["date"];
+
+			$readings = $this->Reading->findAllByLocationIdAndDate($id, $latestDate);
 
 		} else {
 			throw new BadRequestException("Station ID cannot be empty!");
@@ -33,7 +33,6 @@ class ReadingController extends AppController {
 		if ($this->Reading->getAffectedRows() == 0 ){
 			throw new NotFoundException("No readings found for that ID!");
 		}
-		$readings['id'] = $id;
 		$this->set('readings', $readings);
 	}
 
@@ -52,7 +51,7 @@ class ReadingController extends AppController {
 	function dataDate($id, $date) {
 		if ($id != null && $date != null) {
 			// query goes here
-
+			
 
 		} else {
 			throw new BadRequestException("ID and date cannot be empty!");
