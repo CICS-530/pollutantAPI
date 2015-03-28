@@ -1,11 +1,28 @@
 <?php
 	$jsonArray = array();
-	$jsonArray["station"] = $readings["Location"]["name"];
-	$jsonArray["latitude"] = $readings["Location"]["latitude"];
-	$jsonArray["longitude"] = $readings["Location"]["longitude"];
-	$jsonArray["date"] = $readings["Reading"]["time"];
 
-	$chemicals[] = array("name" => "NO2", "reading" => $readings["Reading"]["reading"]);
+	// The location and dates are all the same, so I can
+	// Retreive that from the first entry.
+
+	$firstReading = $readings[0];
+	$jsonArray["station"] = $firstReading["Location"]["name"];
+	$jsonArray["latitude"] = $firstReading["Location"]["latitude"];
+	$jsonArray["longitude"] = $firstReading["Location"]["longitude"];
+	$jsonArray["date"] = $firstReading["Reading"]["date"];
+
+
+	// get the each chemical entry
+	$chemicals = array();
+	
+	foreach($readings as $value) {
+		$chemical = array();
+		$chemical["name"] = $value["Chemical"]["name"];
+		$chemical["value"] = $value["Reading"]["value"];
+		$chemical["units"] = $value["Chemical"]["units"];
+
+		$chemicals[] = $chemical;
+	}
 
 	$jsonArray["Chemicals"] = $chemicals;
+
 	echo json_encode($jsonArray);
