@@ -20,9 +20,7 @@ class ReadingController extends AppController {
 	function latestData($id) {
 		$this->Reading->recursive = 1;
 		if ($id != null) {
-			$tempQuery = $this->Reading->findByLocationId($id, array(), array("date" => "desc"));
-			
-			$latestDate = $tempQuery["Reading"]["date"];
+			$latestDate = $this->getLatestDate($id);
 
 			$readings = $this->Reading->findAllByLocationIdAndDate($id, $latestDate);
 
@@ -49,14 +47,36 @@ class ReadingController extends AppController {
 	*/
 
 	function dataDate($id, $date) {
+		$SECS_DAY = 60 * 60 * 24;
+		$multiplier = $date * $SECS_DAY;
 		if ($id != null && $date != null) {
 			// query goes here
-			
+			$latestDate = $this->getLatestDate($id);
+			$latestDate -= $multiplier;
+
+			$conditions = array("Reading.date <=". $latestDate, "Location.id = " => $id);
+			$readings = $this->Reading->find('all', array('conditions' => $conditions));
 
 		} else {
 			throw new BadRequestException("ID and date cannot be empty!");
 		}
 
+		if ($this->Reading->getAffectedRows() == 0) {
+			throw new NotFoundException("No results found!");
+		}
+
 		$this->set('readings', $readings);
+	}
+
+	/*
+	* Get the latest date available from 
+	* the database.
+	*/
+	function getLatestDate($id) {
+		$tempQuery = $this->Reading->findByLocationId($id, array(), array("date" => "desc"));
+			
+		$latestDate = $tempQuery["Reading"]["date"];
+
+		return $latestDate;
 	}
 }
