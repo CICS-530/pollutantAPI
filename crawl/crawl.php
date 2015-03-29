@@ -94,15 +94,3 @@ while(true) { //loop over rows
 	} //end column loop
 	$row_itr++;
 } //end row loop
-
-?>
-
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>Data Crawling 101</title>
-</head>
-<body>
-<?= $polTbl; ?>
-</body>
-</html>
