@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 28, 2015 at 12:30 AM
+-- Generation Time: Mar 30, 2015 at 10:39 PM
 -- Server version: 5.5.41-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.7
 
@@ -3657,7 +3657,7 @@ CREATE TABLE IF NOT EXISTS `Readings` (
   `date` int(20) NOT NULL,
   `value` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=127 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=131 ;
 
 --
 -- Dumping data for table `Readings`
@@ -3789,7 +3789,11 @@ INSERT INTO `Readings` (`id`, `location_id`, `chemical_id`, `date`, `value`) VAL
 (123, 25, 4, 1427518800, 3.4),
 (124, 25, 5, 1427518800, 15.9),
 (125, 25, 6, 1427518800, 1),
-(126, 25, 7, 1427518800, 0.26);
+(126, 25, 7, 1427518800, 0.26),
+(127, 25, 4, 1427747265, 4.3),
+(128, 25, 2, 1427747265, 0.5),
+(129, 25, 4, 1427750865, 4.4),
+(130, 25, 2, 1427750865, 0.7);
 
 -- --------------------------------------------------------
 
