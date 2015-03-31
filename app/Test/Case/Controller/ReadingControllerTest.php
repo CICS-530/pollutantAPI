@@ -23,16 +23,6 @@ class ReadingControllerTest extends ControllerTestCase {
 		debug($this->vars);
 	}
 
-
-	/**
-	* Testing the datedata method
-	*/
-	public function test_dateBefore() {
-		$this->testAction('/reading/dataDate/25/3', array('method' => 'get'));
-		$results = $this->vars;
-		$this->assertEquals(5, count($results["readings"]));
-	}
-
 	/**
 	*
 	* Testing the latestData method
