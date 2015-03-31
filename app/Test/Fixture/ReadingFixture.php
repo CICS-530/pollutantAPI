@@ -5,7 +5,7 @@
 */
 class ReadingFixture extends CakeTestFixture {
 	public $import = "Reading";
-
+	public $useDbConfig = "test";
 
 	/**
 	* Dynamic data for testing dates
