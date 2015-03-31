@@ -19,6 +19,10 @@ class ReadingFixture extends CakeTestFixture {
 		$forwardDate = new DateTime();
 		$forwardDate->setTimestamp(date('U'));
 
+		$forwardHour = new DateTime();
+		$forwardHour->setTimestamp($forwardDate->getTimeStamp());
+		$forwardHour->modify('+1 hour');
+
 		$this->records = array(
 			array('id' => 1,
 				'location_id' => '25',
@@ -37,6 +41,18 @@ class ReadingFixture extends CakeTestFixture {
 				'chemical_id' => '7', 
 				'date' => $forwardDate->getTimeStamp(),
 				'value' => '4.3'
+			),
+			array('id' => 4,
+				'location_id' => '25',
+				'chemical_id' => '7',
+				'date' => $forwardHour->getTimeStamp(),
+				'value' => '0.5'
+			),
+			array('id' => 5,
+				'location_id' => '25',
+				'chemical_id' => '6',
+				'date' => $forwardHour->getTimeStamp(),
+				'value' => '4.4'
 			)
 		);
 		// override the parent

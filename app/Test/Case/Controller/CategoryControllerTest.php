@@ -79,8 +79,6 @@ class CategoryControllerTest extends ControllerTestCase{
 		$this->testAction('/category/getDiseases/Liver', array('method' => 'get'));
 	
 		$returnedArray = $this->vars['categories'];
-		
-		debug($returnedArray);
 		$category = $returnedArray["Category"];
 		$this->assertEquals("Liver", $category["name"]);
 		$this->assertEquals(10, count($returnedArray["Disease"]));

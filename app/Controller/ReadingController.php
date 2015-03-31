@@ -59,7 +59,7 @@ class ReadingController extends AppController {
 
 		$this->Reading->recursive = 1;
 		if ($id != null && $dateOffset != null) {
-			// query goes here
+			// set the date limits on the search
 			$latestDate = $this->getLatestDate($id);
 			$olderLimit = DateLib::oldestDate($dateOffset, $latestDate);
 			$youngerLimit = DateLib::youngestDate($dateOffset, $latestDate);
@@ -68,11 +68,17 @@ class ReadingController extends AppController {
 				"Reading.date >= ". $olderLimit, 
 				"Location.id = " => $id);
 			
+			// the actual query
 			$readings = $this->Reading->find('all', array('conditions' => $conditions, 
 				"fields" => array('Reading.date', 'Reading.value', 'Chemical.name', 'Chemical.units',
-					'Location.name', 'Location.latitude', 'Location.longitude')));
+					'Location.name', 'Location.latitude', 'Location.longitude'))
+			);
 		} else {
 			throw new BadRequestException("ID and date cannot be empty!");
+		}
+
+		if ($this->Reading->getAffectedRows() == 0) {
+			throw new NotFoundException("No results found!");
 		}
 
 		$this->set('readings', $readings);

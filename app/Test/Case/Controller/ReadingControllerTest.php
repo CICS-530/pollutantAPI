@@ -13,7 +13,7 @@ class ReadingControllerTest extends ControllerTestCase {
 	public function test_dateData() {
 		$this->testAction('/reading/dataDate/25/0', array('method' => 'get'));
 		$results = $this->vars;
-		$this->assertEquals(1, count($results["readings"]));
+		$this->assertEquals(3, count($results["readings"]));
 	}
 
 	/**
