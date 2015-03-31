@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 	
 	//echo json_encode($readings);
 	
@@ -62,3 +63,7 @@
 		return $jsonArray;
 
 	}
+=======
+	echo json_encode($readings);
+	
+>>>>>>> master

@@ -23,9 +23,7 @@ class ReadingController extends AppController {
 	function latestData($id) {
 		$this->Reading->recursive = 1;
 		if ($id != null) {
-			$tempQuery = $this->Reading->findByLocationId($id, array(), array("date" => "desc"));
-			
-			$latestDate = $tempQuery["Reading"]["date"];
+			$latestDate = $this->getLatestDate($id);
 
 			$readings = $this->Reading->findAllByLocationIdAndDate($id, $latestDate);
 
@@ -47,7 +45,6 @@ class ReadingController extends AppController {
 	* The maximum number of days is 7; any longer and the server takes too long
 	* to retrieve the data.
 	* 
-	* Date is provided as a offset between 1 and 7.
 	* Must also provide the ID as well.
 	*/
 
