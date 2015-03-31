@@ -37,8 +37,8 @@ class AppController extends Controller {
 	}
 
 	public function beforeRender() {
-		//$this->layout='';
-		//$this->response->type("application/json");
+		$this->layout='';
+		$this->response->type("application/json");
 		$this->response->header('Access-Control-Allow-Origin', '*');
 	}
 }
