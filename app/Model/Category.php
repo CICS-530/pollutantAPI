@@ -18,6 +18,7 @@
 
 class Category extends AppModel {
 	public $useTable = 'Categories';
+	public $actsAs = array('Containable');
 	public $hasAndBelongsToMany = array(
 			'Disease' =>
 				array(

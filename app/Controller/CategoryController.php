@@ -110,8 +110,14 @@ class CategoryController extends AppController {
 	* Gets ALL categories and ALL diseases associated with each category.
 	* Also returns all the toxins associated with each disease as well.
 	*/
-	function getAll() {
+	
+	function getAll($id) {
 		$this->Category->recursive = -1;
+
+		if ($id == null) { 
+			throw new BadRequestException("Must supply a category ID");
+		}
+
 		$results = $this->Category->find('all', 
 			array("joins" => 
 					array(array("table" => "Categories_Diseases",
@@ -130,9 +136,13 @@ class CategoryController extends AppController {
 				   "fields" =>
 				   	array("Category.name", "Diseases.name", "Toxins.name", "Diseases_Toxins.evidence_strength"),
 				   	"order" => array("Category.name", "Diseases_Toxins.evidence_strength"),
-				   	"conditions" => array("Category.id = 136")
+				   	"conditions" => array("Category.id = ". $id)
 			)
 		);
+
+		if ($this->Category->getAffectedRows() == 0 ) {
+			throw new NotFoundException("No results found!");
+		}
 
 		$this->set('allData', $results);
 	}

@@ -13,6 +13,8 @@ class Disease extends AppModel {
 	// needs to be filled in!
 	public $useTable = 'Diseases';
 
+	public $actsAs = array("Containable");
+
 	public $hasAndBelongsToMany = array(
 			'Category' =>
 				array(
