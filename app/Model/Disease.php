@@ -23,5 +23,11 @@ class Disease extends AppModel {
 					)
 		);
 
-	public $hasMany = array('DiseaseToxin');
+	public $hasMany = array(			
+			'DiseaseToxin' =>
+				array(
+					'className' => 'DiseaseToxin',
+					'order' => 'DiseaseToxin.evidence_strength DESC'
+					)
+	    );
 }
