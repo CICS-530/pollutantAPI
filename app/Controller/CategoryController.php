@@ -105,5 +105,36 @@ class CategoryController extends AppController {
 	
 		$this->set ('categories', $category);
 	}
+
+	/**
+	* Gets ALL categories and ALL diseases associated with each category.
+	* Also returns all the toxins associated with each disease as well.
+	*/
+	function getAll() {
+		$this->Category->recursive = -1;
+		$results = $this->Category->find('all', 
+			array("joins" => 
+					array(array("table" => "Categories_Diseases",
+						  "type" => "inner",
+						  "conditions" => array("Category.id = Categories_Diseases.category_id")),
+						  array("table" => "Diseases",
+								"type" => "inner",
+								"conditions" => array("Diseases.id = Categories_Diseases.diseases_id")),
+						  array("table" => "Diseases_Toxins",
+								"type" => "inner",
+								"conditions" => array("Diseases.id = Diseases_Toxins.disease_id")),
+						  array("table" => "Toxins",
+								"type" => "inner",
+								"conditions" => array("Toxins.id = Diseases_Toxins.toxin_id"))
+					),
+				   "fields" =>
+				   	array("Category.name", "Diseases.name", "Toxins.name", "Diseases_Toxins.evidence_strength"),
+				   	"order" => array("Category.name", "Diseases_Toxins.evidence_strength"),
+				   	"conditions" => array("Category.id = 136")
+			)
+		);
+
+		$this->set('allData', $results);
+	}
 	
 }
