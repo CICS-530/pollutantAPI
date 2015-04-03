@@ -11,9 +11,10 @@
 
 	$categoryNames = array_unique($categoryNames);
 
-	for($i = 0; $i < count($categoryNames); $i++) {
-		$categories[]["Category"] = array("name" => $categoryNames[$i], "Diseases" => array());
+	foreach($categoryNames as $name) {
+		$categories[]["Category"] = array("name" => $name, "Diseases" => array());
 	}
+
 
 
 	// we need an array for all diseases in EACH category
@@ -29,7 +30,6 @@
 		$diseases[] = array("name" => $name, "Toxins" => array());
 	}
 
-
 	// associating each disease with an array of toxins.
 	foreach($allData as $result) {
 		for($i = 0; $i< count($diseases); $i++) {
@@ -39,5 +39,15 @@
 		}
 	}
 
-	var_dump($categories);
-	//echo json_encode($categories);
+
+	foreach($allData as $result) {
+		for($i = 0; $i< count($categories); $i++) {
+			// if the category name matches the result category name
+			if ($categories[$i]["Category"]["name"] == $result["Category"]["name"]) {
+				// find the disease and put it in the disease array of the category
+				$categories[$i]["Category"]["Diseases"] = $diseases;
+			}
+		}
+	}
+	
+	echo json_encode($categories);
