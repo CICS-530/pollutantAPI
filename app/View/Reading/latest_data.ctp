@@ -1,7 +1,5 @@
 <?php
 	$jsonArray = array();
-
-	echo json_encode($readings);
 	// The location and dates are all the same, so I can
 	// Retreive that from the first entry.
 	
