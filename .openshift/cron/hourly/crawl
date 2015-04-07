@@ -1,8 +1,13 @@
 #!/bin/bash
+pwd
+
+# crawl directory
+CRAWL_DIR=$OPENSHIFT_REPO_DIR"crawl"
+
 
 # get the data
-php $OPENSHIFT_REPO_DIR/crawl/crawl.php
+(cd $CRAWL_DIR && php $CRAWL_DIR/crawl.php)
 # insert into database
-mysql --user=$OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD --socket=$OPENSHIFT_MYSQL_DB_SOCKET pollutantapi < $OPENSHIFT_REPO_DIR/crawl/sql_log.sql
+mysql --user=$OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD --socket=$OPENSHIFT_MYSQL_DB_SOCKET pollutantapi < $CRAWL_DIR/sql_log.sql
 # delete the sql_log
-rm $OPENSHIFT_REPO_DIR/crawl/sql_log.sql
+rm $CRAWL_DIR/sql_log.sql
