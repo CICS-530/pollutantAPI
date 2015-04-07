@@ -8,6 +8,9 @@
 * 
 */
 
+App::uses('AppController', 'Controller');
+App::uses('DateLib', 'DateLib');
+
 
 class ReadingController extends AppController {
 
@@ -45,22 +48,28 @@ class ReadingController extends AppController {
 	* Must also provide the ID as well.
 	*/
 
-	function dataDate($id, $date) {
-		$SECS_DAY = 60 * 60 * 24;
-		$multiplier = $date * $SECS_DAY;
-
+	
+	function dataDate($id, $dateOffset) {
 		// need to get a range. so if we have a date of 6, 
 		// we need to start from the latest date, and get all the data from 6 days ago.
 		// i.e. all the readings that are younger than 7 days back, but older than 5 days back. 
 
-		if ($id != null && $date != null) {
-			// query goes here
+		$this->Reading->recursive = 1;
+		if ($id != null && $dateOffset != null) {
+			// set the date limits on the search
 			$latestDate = $this->getLatestDate($id);
-			$latestDate -= $multiplier;
+			$olderLimit = DateLib::oldestDate($dateOffset, $latestDate);
+			$youngerLimit = DateLib::youngestDate($dateOffset, $latestDate);
 
-			$conditions = array("Reading.date <=". $latestDate, "Location.id = " => $id);
-			$readings = $this->Reading->find('all', array('conditions' => $conditions));
-
+			$conditions = array("Reading.date <=". $youngerLimit,
+				"Reading.date >= ". $olderLimit, 
+				"Location.id = " => $id);
+			
+			// the actual query
+			$readings = $this->Reading->find('all', array('conditions' => $conditions, 
+				"fields" => array('Reading.date', 'Reading.value', 'Chemical.name', 'Chemical.units',
+					'Location.name', 'Location.latitude', 'Location.longitude'))
+			);
 		} else {
 			throw new BadRequestException("ID and date cannot be empty!");
 		}
@@ -76,21 +85,9 @@ class ReadingController extends AppController {
 	* Get the latest date available from the database.
 	*/
 	function getLatestDate($id) {
-		$tempQuery = $this->Reading->findByLocationId($id, array(), array("date" => "desc"));
+		$tempQuery = $this->Reading->findByLocationId($id, array('date'), array("date" => "desc"));
 			
 		$latestDate = $tempQuery["Reading"]["date"];
-
 		return $latestDate;
-	}
-
-	/**
-	* Given a UTC timestamp, reset it to midnight.
-	*/
-	function normalizeDate($timestamp) {
-		$dateObj = new DateTime();
-		$dateObj->setTimestamp($timestamp);
-
-		$dateObj->setTime(00, 00, 00);
-
 	}
 }
